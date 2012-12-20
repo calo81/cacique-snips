@@ -1,0 +1,10 @@
+
+
+<script type="text/javascript">SyntaxHighlighter.all();</script>
+<pre class="brush: ruby;">
+ <%= @snippet.snippet %>
+</pre>
+<br/>
+<br/>
+<%= link_to 'Edit', edit_snippet_path(@snippet)%>
+<%= link_to 'delete', @snippet, :confirm => "Delete?",  :method => :delete%>

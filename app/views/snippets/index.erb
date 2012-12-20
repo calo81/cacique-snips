@@ -1,0 +1,8 @@
+All Snippets: <br/>
+<% @snippets.each do |snippet| %>
+    <%= link_to snippet.title, snippet %><br/>
+<% end %>
+
+<br/>
+<br/>
+<%= link_to 'Create Snippet', new_snippet_path %>
