@@ -1,4 +1,6 @@
 class SnippetsController < ApplicationController
+
+  before_filter :ensure_owner, :except => [:index,:new,:create]
   def new
     @snippet = Snippet.new
   end
@@ -15,10 +17,10 @@ class SnippetsController < ApplicationController
 
   def index
     if(params[:language])
-      @snippets = Snippet.where(:language => params[:language])
+      @snippets = Snippet.where(:language => params[:language], :user_id => current_user.id)
       @selected_language = params[:language]
     else
-      @snippets = Snippet.all
+      @snippets = Snippet.where(:user_id => current_user.id)
       @selected_language = 'ruby'
     end
   end
@@ -37,5 +39,11 @@ class SnippetsController < ApplicationController
     @snippet.update_attributes(params[:snippet])
     @snippet.save
     redirect_to snippets_path
+  end
+
+  private
+  def ensure_owner
+    @snippet =  Snippet.find(params[:id])
+    raise "Permission Error" unless @snippet.user == current_user
   end
 end
