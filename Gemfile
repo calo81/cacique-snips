@@ -29,6 +29,9 @@ group :production  do
 end
 
 gem 'jquery-rails'
+gem 'devise', '~> 1.4.3'
+gem 'execjs'
+gem 'therubyracer'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

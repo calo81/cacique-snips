@@ -4,7 +4,8 @@ class SnippetsController < ApplicationController
   end
 
   def create
-    Snippet.create(params[:snippet])
+    snippet = Snippet.new(params[:snippet].merge!(:user => current_user))
+    snippet.save
     redirect_to snippets_path
   end
 
@@ -13,7 +14,13 @@ class SnippetsController < ApplicationController
   end
 
   def index
-    @snippets = Snippet.all
+    if(params[:language])
+      @snippets = Snippet.where(:language => params[:language])
+      @selected_language = params[:language]
+    else
+      @snippets = Snippet.all
+      @selected_language = 'ruby'
+    end
   end
 
   def edit

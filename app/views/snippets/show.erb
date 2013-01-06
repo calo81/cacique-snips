@@ -1,8 +1,8 @@
 
 
 <script type="text/javascript">SyntaxHighlighter.all();</script>
-<h2><%= @snippet.title %></h2>
-<pre class="brush: ruby;">
+<h2><%= @snippet.title %>  ( <%= @snippet.language %> )</h2>
+<pre class="brush: <%= @snippet.language %>;">
  <%= @snippet.snippet %>
 </pre>
 <br/>
