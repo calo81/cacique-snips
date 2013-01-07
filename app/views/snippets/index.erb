@@ -1,12 +1,18 @@
-<%= form_tag snippets_path,  :method => :get do  %>
-    Language: <%= select_tag(:language, options_for_select(languages,  @selected_language.to_s)) %>
-    <%= submit_tag :filter %>
+<% @languages.each do |language,snippets| %>
+    <%= link_to  "#{language}(#{snippets.count})", snippets_path(:language => language)%>
+    <br/>
  <% end %>
-<br/>Snippets: <br/>
+
+<br/>
+<br/>
+
+<% if @selected_language %>
+<br/>Snippets in <%= @selected_language %> <br/>
 <% @snippets.each do |snippet| %>
     <%= link_to snippet.title, snippet %> &nbsp;&nbsp;&nbsp;&nbsp;<%= snippet.language %><br/>
 <% end %>
 
 <br/>
 <br/>
+ <% end %>
 <%= link_to 'Create Snippet', new_snippet_path %>

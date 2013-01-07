@@ -21,8 +21,9 @@ class SnippetsController < ApplicationController
       @selected_language = params[:language]
     else
       @snippets = Snippet.where(:user_id => current_user.id)
-      @selected_language = 'ruby'
     end
+    all_snippets = Snippet.where(:user_id => current_user.id)
+    @languages = all_snippets.group_by(&:language)
   end
 
   def edit
