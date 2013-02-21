@@ -1,6 +1,7 @@
 class SnippetsController < ApplicationController
 
-  before_filter :ensure_owner, :except => [:index,:new,:create]
+  before_filter :authenticate_user!, :except => [:index, :show]
+  before_filter :ensure_owner, :only => [:update,:destroy]
   def new
     @snippet = Snippet.new
   end
@@ -16,13 +17,14 @@ class SnippetsController < ApplicationController
   end
 
   def index
+    user_id = current_user ? current_user.id : -1
     if(params[:language])
-      @snippets = Snippet.where(:language => params[:language], :user_id => current_user.id)
+      @snippets = Snippet.where(:language => params[:language]).by_owner_or_public(user_id)
       @selected_language = params[:language]
     else
-      @snippets = Snippet.where(:user_id => current_user.id)
+      @snippets = Snippet.by_owner_or_public(user_id)
     end
-    all_snippets = Snippet.where(:user_id => current_user.id)
+    all_snippets = Snippet.by_owner_or_public(user_id)
     @languages = all_snippets.group_by(&:language)
   end
 

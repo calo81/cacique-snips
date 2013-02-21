@@ -5,5 +5,8 @@
     <%= f.select(:language, languages) %>
     <%= f.label :snippet %>
     <%= f.text_area :snippet %>
+    <%= f.label :public %>
+    <%= f.check_box :public %>
+    <br/>
     <%= f.submit %>
 <% end %>

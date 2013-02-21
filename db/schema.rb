@@ -11,13 +11,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130106142956) do
+ActiveRecord::Schema.define(:version => 20130221160413) do
 
   create_table "snippets", :force => true do |t|
     t.string  "title"
     t.string  "language"
     t.text    "snippet"
     t.integer "user_id"
+    t.boolean "public"
   end
 
   create_table "users", :force => true do |t|
